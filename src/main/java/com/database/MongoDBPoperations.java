@@ -10,15 +10,16 @@ import java.util.List;
 
 public class MongoDBPoperations {
 
-    public void saveCity(MongoOperations mongoOp, City city) {
+    public boolean saveCity(MongoOperations mongoOp, City city) {
         Query searchCity = new Query(Criteria.where("cityName").is(city.getCityName()));
         City resultCity = mongoOp.findOne(searchCity, City.class);
 
         if (resultCity == null) {
             mongoOp.save(city);
-            System.out.println("City " + city.getCityName() + " saved successfully.");
+            return true;
         }
-        System.out.println("City " + city.getCityName() + " already exists.");
+        return false;
+
     }
 
     public City searchCity(MongoOperations mongoOp, String criteria, String value) {
@@ -26,25 +27,22 @@ public class MongoDBPoperations {
 
         Query searchCity = new Query(Criteria.where(criteria).is(value));
 
-        City resultCity = mongoOp.findOne(searchCity, City.class);
-
-        System.out.println("City details: " + resultCity);
-        return resultCity;
+        return mongoOp.findOne(searchCity, City.class);
     }
 
     public void updateCity(MongoOperations mongoOp, String criteria,String value, String uCriteria, String uValue) {
         Query searchCity = new Query(Criteria.where(criteria).is(value));
 
         mongoOp.updateFirst(searchCity, Update.update(uCriteria, uValue), City.class);
-        System.out.println("City got updated successfully");
     }
 
     public StringBuilder getAllCities(MongoOperations mongoOp) {
         List<City> listCity = mongoOp.findAll(City.class);
 
+
         StringBuilder cities = new StringBuilder();
         for(City city:listCity) {
-            cities.append(city).append("\n");
+            cities.append(city.getCityName()).append("\n");
         }
 
         return cities;
@@ -66,7 +64,6 @@ public class MongoDBPoperations {
         Query searchCity = new Query(Criteria.where(criteria).is(value));
 
         mongoOp.remove(searchCity, City.class);
-        System.out.println("City removed successfully!! ");
     }
 }
 

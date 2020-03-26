@@ -30,8 +30,6 @@ public class City {
 
     @Override
     public String toString() {
-        return String.format(
-          "City: %s, Description: %s",
-                this.cityName, this.description);
+        return this.cityName;
     }
 }

@@ -12,8 +12,8 @@ public class Peripheral {
     private MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
     private MongoDBPoperations ops = new MongoDBPoperations();
 
-    public String show_all() {
-        return ops.getAllCities(mongoOperation).toString();
+    public StringBuilder show_all() {
+        return ops.getAllCities(mongoOperation);
     }
 
     public String show(String cityName) {

@@ -1,9 +1,12 @@
 package com.webservice;
 
 
+import com.database.model.City;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @SpringBootApplication
@@ -15,27 +18,27 @@ public class WebServiceController {
         SpringApplication.run(WebServiceController.class, args);
     }
 
-    @RequestMapping(value = "/show", method = RequestMethod.GET)
-    public String show_all() {
+    @RequestMapping(value = "/cities/list", method = RequestMethod.GET)
+    public StringBuilder show_all() {
         return periphery.show_all();
     }
 
-    @RequestMapping(value = "/show/{cityName}", method = RequestMethod.GET)
+    @RequestMapping(value = "/cities/{cityName}", method = RequestMethod.GET)
     public String show(@PathVariable("cityName") String cityName) {
         return periphery.show(cityName);
     }
 
-    @RequestMapping(value = "/add/{cityName}", method = RequestMethod.POST)
+    @RequestMapping(value = "/cities/add/{cityName}", method = RequestMethod.POST)
     public String add(@PathVariable("cityName") String cityName, @RequestParam(value = "description") String description) {
         return periphery.add(cityName, description);
     }
 
-    @RequestMapping(value = "/remove/{cityName}", method = RequestMethod.GET)
+    @RequestMapping(value = "/cities/remove/{cityName}", method = RequestMethod.GET)
     public String remove(@PathVariable("cityName") String cityName) {
         return periphery.remove(cityName);
     }
 
-    @RequestMapping(value = "/update/{cityName}", method = RequestMethod.POST)
+    @RequestMapping(value = "/cities/update/{cityName}", method = RequestMethod.POST)
     public String update(@PathVariable("cityName") String cityName, @RequestParam(value = "description") String description) {
         return periphery.update(cityName, description);
     }
