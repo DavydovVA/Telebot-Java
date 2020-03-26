@@ -13,6 +13,8 @@ Bot:
 - Интернет-соединение
 - запущенная локально MongoDB
 
+Запустить WebServiceController & RunBot.
+
 Web Service:
 -
 через консоль (curl): curl localhost:8080/{command}
