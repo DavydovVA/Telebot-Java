@@ -20,7 +20,7 @@ public class WebServiceController {
 
     @RequestMapping(value = "/cities/list", method = RequestMethod.GET)
     public StringBuilder show_all() {
-        return periphery.show_all();
+        return periphery.showAll();
     }
 
     @RequestMapping(value = "/cities/{cityName}", method = RequestMethod.GET)

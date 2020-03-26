@@ -12,7 +12,7 @@ public class Peripheral {
     private MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
     private MongoDBPoperations ops = new MongoDBPoperations();
 
-    public StringBuilder show_all() {
+    public StringBuilder showAll() {
         return ops.getAllCities(mongoOperation);
     }
 
