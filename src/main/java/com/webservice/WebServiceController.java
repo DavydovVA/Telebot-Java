@@ -1,12 +1,10 @@
 package com.webservice;
 
 
-import com.database.model.City;
+import com.database.Peripheral;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 
 @SpringBootApplication

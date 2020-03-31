@@ -1,11 +1,11 @@
 package com.database.config;
 
+import com.mongodb.MongoClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
-import com.mongodb.MongoClient;
-import javax.annotation.Nonnull;
 
+import javax.annotation.Nonnull;
 
 
 @Configuration

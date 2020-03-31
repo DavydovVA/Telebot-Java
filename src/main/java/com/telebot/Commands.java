@@ -7,8 +7,6 @@ public class Commands {
 
     private String[] commands = {"/start", "/help", "/cities"};
 
-    Commands() {}
-
     static String createStartString(String[] array) {
         StringBuilder str = new StringBuilder();
 

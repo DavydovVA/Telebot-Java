@@ -1,9 +1,5 @@
-package com.database.model;
+package com.model;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
-
-@Document(collection = "cities")
 public class City {
 
     private String cityName;

@@ -1,11 +1,12 @@
 package com.database;
 
 
-import com.database.model.City;
+import com.model.City;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+
 import java.util.List;
 
 public class MongoDBPoperations {
@@ -27,17 +28,17 @@ public class MongoDBPoperations {
 
         Query searchCity = new Query(Criteria.where(criteria).is(value));
 
-        return mongoOp.findOne(searchCity, City.class);
+        return mongoOp.findOne(searchCity, City.class, "cities");
     }
 
     public void updateCity(MongoOperations mongoOp, String criteria,String value, String uCriteria, String uValue) {
         Query searchCity = new Query(Criteria.where(criteria).is(value));
 
-        mongoOp.updateFirst(searchCity, Update.update(uCriteria, uValue), City.class);
+        mongoOp.updateFirst(searchCity, Update.update(uCriteria, uValue), City.class, "cities");
     }
 
     public StringBuilder getAllCities(MongoOperations mongoOp) {
-        List<City> listCity = mongoOp.findAll(City.class);
+        List<City> listCity = mongoOp.findAll(City.class, "cities");
 
 
         StringBuilder cities = new StringBuilder();
@@ -49,7 +50,7 @@ public class MongoDBPoperations {
     }
 
     public String getCitiesList(MongoOperations mongoOp) {
-        List<City> listCity = mongoOp.findAll(City.class);
+        List<City> listCity = mongoOp.findAll(City.class, "cities");
 
         StringBuilder cities = new StringBuilder();
         for(City city:listCity) {
@@ -63,7 +64,7 @@ public class MongoDBPoperations {
     public void removeCity(MongoOperations mongoOp, String criteria,String value) {
         Query searchCity = new Query(Criteria.where(criteria).is(value));
 
-        mongoOp.remove(searchCity, City.class);
+        mongoOp.remove(searchCity, City.class, "cities");
     }
 }
 
