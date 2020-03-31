@@ -2,6 +2,7 @@ package com.webservice;
 
 
 import com.database.Peripheral;
+import com.google.gson.Gson;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
@@ -17,27 +18,27 @@ public class WebServiceController {
     }
 
     @RequestMapping(value = "/cities/list", method = RequestMethod.GET)
-    public StringBuilder show_all() {
-        return periphery.showAll();
+    public String showAll() {
+        return new Gson().toJson(periphery.getAll());
     }
 
     @RequestMapping(value = "/cities/{cityName}", method = RequestMethod.GET)
     public String show(@PathVariable("cityName") String cityName) {
-        return periphery.show(cityName);
+        return new Gson().toJson(periphery.show(cityName));
     }
 
     @RequestMapping(value = "/cities/add/{cityName}", method = RequestMethod.POST)
-    public String add(@PathVariable("cityName") String cityName, @RequestParam(value = "description") String description) {
+    public boolean add(@PathVariable("cityName") String cityName, @RequestParam(value = "description") String description) {
         return periphery.add(cityName, description);
     }
 
     @RequestMapping(value = "/cities/remove/{cityName}", method = RequestMethod.GET)
-    public String remove(@PathVariable("cityName") String cityName) {
+    public boolean remove(@PathVariable("cityName") String cityName) {
         return periphery.remove(cityName);
     }
 
     @RequestMapping(value = "/cities/update/{cityName}", method = RequestMethod.POST)
-    public String update(@PathVariable("cityName") String cityName, @RequestParam(value = "description") String description) {
+    public boolean update(@PathVariable("cityName") String cityName, @RequestParam(value = "description") String description) {
         return periphery.update(cityName, description);
     }
 }

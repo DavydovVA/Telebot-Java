@@ -19,8 +19,8 @@ public class MongoDBPoperations {
             mongoOp.save(city);
             return true;
         }
-        return false;
 
+        return false;
     }
 
     public City searchCity(MongoOperations mongoOp, String criteria, String value) {
@@ -31,37 +31,17 @@ public class MongoDBPoperations {
         return mongoOp.findOne(searchCity, City.class, "cities");
     }
 
-    public void updateCity(MongoOperations mongoOp, String criteria,String value, String uCriteria, String uValue) {
+    public void updateCity(MongoOperations mongoOp, String criteria, String value, String uCriteria, String uValue) {
         Query searchCity = new Query(Criteria.where(criteria).is(value));
 
         mongoOp.updateFirst(searchCity, Update.update(uCriteria, uValue), City.class, "cities");
     }
 
-    public StringBuilder getAllCities(MongoOperations mongoOp) {
-        List<City> listCity = mongoOp.findAll(City.class, "cities");
-
-
-        StringBuilder cities = new StringBuilder();
-        for(City city:listCity) {
-            cities.append(city.getCityName()).append("\n");
-        }
-
-        return cities;
+    public List<City> getAllCities(MongoOperations mongoOp) {
+        return mongoOp.findAll(City.class, "cities");
     }
 
-    public String getCitiesList(MongoOperations mongoOp) {
-        List<City> listCity = mongoOp.findAll(City.class, "cities");
-
-        StringBuilder cities = new StringBuilder();
-        for(City city:listCity) {
-            cities.append(city.getCityName()).append("\n");
-        }
-
-        return cities.toString();
-
-    }
-
-    public void removeCity(MongoOperations mongoOp, String criteria,String value) {
+    public void removeCity(MongoOperations mongoOp, String criteria, String value) {
         Query searchCity = new Query(Criteria.where(criteria).is(value));
 
         mongoOp.remove(searchCity, City.class, "cities");

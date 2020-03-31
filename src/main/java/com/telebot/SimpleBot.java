@@ -7,16 +7,18 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 
-public class SimpleBot extends TelegramLongPollingBot {
-	Peripheral periphery = new Peripheral();
 
+public class SimpleBot extends TelegramLongPollingBot {
+
+	Peripheral periphery = new Peripheral();
 
 	public void onUpdateReceived(Update update) {
 		try {
 			String message = update.getMessage().getText();
 
 			if (message.charAt(0) != '/') {
-				String description = periphery.getCityDescription(message);
+				// if not a Command
+				String description = periphery.show(message).getDescription();
 
 				if (description != null) {
 					execute(new SendMessage(update.getMessage().getChatId(), description));
@@ -25,12 +27,34 @@ public class SimpleBot extends TelegramLongPollingBot {
 				}
 
 			} else if (message.charAt(0) == '/') {
-				execute(new SendMessage(update.getMessage().getChatId(), periphery.getCommandDescription(message)));
+				// if Command
+				Command command = Command.parse(message);
+
+				if (command != null) {
+					switch (command) {
+						// to be update
+						case HELP:
+							sendMessage(update, command.getDescription());
+							break;
+						case START:
+							sendMessage(update, command.getDescription());
+							break;
+						case CITIES:
+							sendMessage(update, command.getDescription());
+							break;
+					}
+				} else {
+					execute(new SendMessage(update.getMessage().getChatId(), message.concat(" not found.")));
+				}
 			}
 
 		} catch (TelegramApiException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void sendMessage(Update update, String description) throws TelegramApiException {
+		execute(new SendMessage(update.getMessage().getChatId(), description));
 	}
 
 	@Override
