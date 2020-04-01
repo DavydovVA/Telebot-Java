@@ -1,44 +1,36 @@
-package com.webservice;
+package com.davydov.webservice;
+
+/*import org.springframework.web.bind.annotation.*;
 
 
-import com.database.Peripheral;
-import com.google.gson.Gson;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.*;
-
-
-@SpringBootApplication
-@RestController
+//@RestController
 public class WebServiceController {
-    private Peripheral periphery = new Peripheral();
+    //private Peripheral periphery = new Peripheral();
 
-    public static void main(String[] args) {
-        SpringApplication.run(WebServiceController.class, args);
-    }
 
     @RequestMapping(value = "/cities/list", method = RequestMethod.GET)
     public String showAll() {
-        return new Gson().toJson(periphery.getAll());
+        return "kek";//new Gson().toJson(periphery.getAll());
     }
 
     @RequestMapping(value = "/cities/{cityName}", method = RequestMethod.GET)
     public String show(@PathVariable("cityName") String cityName) {
-        return new Gson().toJson(periphery.show(cityName));
+        return "kek";//return new Gson().toJson(periphery.get(cityName));
     }
 
     @RequestMapping(value = "/cities/add/{cityName}", method = RequestMethod.POST)
     public boolean add(@PathVariable("cityName") String cityName, @RequestParam(value = "description") String description) {
-        return periphery.add(cityName, description);
+        return true;//return periphery.add(cityName, description);
     }
 
     @RequestMapping(value = "/cities/remove/{cityName}", method = RequestMethod.GET)
     public boolean remove(@PathVariable("cityName") String cityName) {
-        return periphery.remove(cityName);
+        return true;//return periphery.remove(cityName);
     }
 
     @RequestMapping(value = "/cities/update/{cityName}", method = RequestMethod.POST)
     public boolean update(@PathVariable("cityName") String cityName, @RequestParam(value = "description") String description) {
-        return periphery.update(cityName, description);
+        return true;//return periphery.update(cityName, description);
     }
 }
+*/
