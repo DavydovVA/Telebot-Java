@@ -1,36 +1,42 @@
 package com.davydov.webservice;
 
-/*import org.springframework.web.bind.annotation.*;
+import com.davydov.database.Peripheral;
+import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 
-//@RestController
+@RestController
 public class WebServiceController {
-    //private Peripheral periphery = new Peripheral();
+    @Autowired
+    private Peripheral periphery;
 
 
     @RequestMapping(value = "/cities/list", method = RequestMethod.GET)
     public String showAll() {
-        return "kek";//new Gson().toJson(periphery.getAll());
+        return new Gson().toJson(periphery.getAll());
     }
 
     @RequestMapping(value = "/cities/{cityName}", method = RequestMethod.GET)
     public String show(@PathVariable("cityName") String cityName) {
-        return "kek";//return new Gson().toJson(periphery.get(cityName));
+        return new Gson().toJson(periphery.get(cityName));
     }
 
     @RequestMapping(value = "/cities/add/{cityName}", method = RequestMethod.POST)
-    public boolean add(@PathVariable("cityName") String cityName, @RequestParam(value = "description") String description) {
-        return true;//return periphery.add(cityName, description);
+    public String add(@PathVariable("cityName") String cityName, @RequestParam(value = "description") String description) {
+        periphery.add(cityName, description);
+        return "updated\n";
     }
 
     @RequestMapping(value = "/cities/remove/{cityName}", method = RequestMethod.GET)
-    public boolean remove(@PathVariable("cityName") String cityName) {
-        return true;//return periphery.remove(cityName);
+    public String remove(@PathVariable("cityName") String cityName) {
+        periphery.remove(cityName);
+        return "updated\n";
     }
 
     @RequestMapping(value = "/cities/update/{cityName}", method = RequestMethod.POST)
-    public boolean update(@PathVariable("cityName") String cityName, @RequestParam(value = "description") String description) {
-        return true;//return periphery.update(cityName, description);
+    public String update(@PathVariable("cityName") String cityName, @RequestParam(value = "description") String description) {
+        periphery.update(cityName, description);
+        return "updated\n";
     }
 }
-*/
