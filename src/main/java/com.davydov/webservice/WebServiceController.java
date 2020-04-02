@@ -7,13 +7,14 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
+@RequestMapping(value = "/cities")
 public class WebServiceController {
     @Autowired
     private Peripheral periphery;
 
 
-    @RequestMapping(value = "/cities/list", method = RequestMethod.GET)
-    public String showAll() {
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String getAll() {
         System.out.println("\n");
         System.out.println(periphery.getAll());
 
@@ -21,24 +22,25 @@ public class WebServiceController {
         return new Gson().toJson(periphery.getAll());
     }
 
-    @RequestMapping(value = "/cities/{cityName}", method = RequestMethod.GET)
-    public String show(@PathVariable("cityName") String cityName) {
+    @RequestMapping(value = "/{cityName}", method = RequestMethod.GET)
+    public String get(@PathVariable("cityName") String cityName) {
+        // return null if nothing found
         return new Gson().toJson(periphery.get(cityName));
     }
 
-    @RequestMapping(value = "/cities/add/{cityName}", method = RequestMethod.POST)
+    @RequestMapping(value = "/add/{cityName}", method = RequestMethod.POST)
     public String add(@PathVariable("cityName") String cityName, @RequestParam(value = "description") String description) {
         periphery.add(cityName, description);
         return "updated\n";
     }
 
-    @RequestMapping(value = "/cities/remove/{cityName}", method = RequestMethod.GET)
+    @RequestMapping(value = "/remove/{cityName}", method = RequestMethod.GET)
     public String remove(@PathVariable("cityName") String cityName) {
         periphery.remove(cityName);
         return "updated\n";
     }
 
-    @RequestMapping(value = "/cities/update/{cityName}", method = RequestMethod.POST)
+    @RequestMapping(value = "/update/{cityName}", method = RequestMethod.POST)
     public String update(@PathVariable("cityName") String cityName, @RequestParam(value = "description") String description) {
         periphery.update(cityName, description);
         return "updated\n";
