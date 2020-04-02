@@ -18,12 +18,12 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 public class Test {
 
     public static void main (String[] args) {
-        SpringApplication sa = new SpringApplication(Test.class);
-        sa.setBannerMode(Banner.Mode.OFF);
-        sa.setLogStartupInfo(false);
+        SpringApplication app = new SpringApplication(Test.class);
+        app.setBannerMode(Banner.Mode.OFF);
+        app.setLogStartupInfo(false);
 
-        ApplicationContext c = sa.run(args);
-        RunBotApplication bean = c.getBean(RunBotApplication.class);
+        ApplicationContext context = app.run(args);
+        RunBotApplication bean = context.getBean(RunBotApplication.class);
         bean.run();
 
     }
