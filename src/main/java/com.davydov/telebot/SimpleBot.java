@@ -26,7 +26,7 @@ public class SimpleBot extends TelegramLongPollingBot {
 				City city = repository.getCity(message);
 				String info;
 				if (city != null) {
-					info = repository.getCity(message).getDescription();
+					info = city.getDescription();
 				} else{
 					info = "No info about " + message + ".";
 				}
@@ -39,18 +39,9 @@ public class SimpleBot extends TelegramLongPollingBot {
 				if (command != null) {
 					switch (command) {
 						case START:
-							sendMessage(update, command.getDescription());
-							break;
 
 						case HELP:
-							Command[] list = command.getCommands();
-
-							StringBuilder sb1 = new StringBuilder();
-							for (int i = 1; i < list.length; i++){
-								sb1.append(list[i].getCommand().concat(" "))
-										.append(list[i].getDescription().concat("\n"));
-							}
-							sendMessage(update, sb1.toString());
+							sendMessage(update, command.getDescription());
 							break;
 
 						case CITIES:
