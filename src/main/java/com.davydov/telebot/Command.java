@@ -7,6 +7,7 @@ public enum Command {
 
     START("/start", "Hello!"),
     CITIES("/cities", "shows a list of cities."),
+    // Arrays.asList чтобы не дописывать код, если захочу еще одну команду в описание добавить
     HELP("/help", Arrays.asList(CITIES));
 
 
