@@ -33,7 +33,7 @@ Web Service:
 через консоль (curl): curl localhost:8080/{command}
 
 commands: 
-- citis/list - вывести все записи бд.
+- cities/list - вывести все записи бд.
 - cities/{Город} - вывести описание города.
 - cities/add/{Город} -d "description={Описание}" - добавить новую запись в таблицу бд.
 - cities/update/{Город} -d "description={Новое описание}" - изменить запись в таблице бд.
