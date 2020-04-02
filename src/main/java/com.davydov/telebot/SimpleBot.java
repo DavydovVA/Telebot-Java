@@ -23,11 +23,11 @@ public class SimpleBot extends TelegramLongPollingBot {
 			String message = update.getMessage().getText();
 
 			if (message.charAt(0) != '/') {
-
+				City city = repository.getCity(message);
 				String info;
-				try {
-					info = repository.getCity(message).getDescription(); // throws NPtrExc, when nothing found in db
-				} catch(NullPointerException e){
+				if (city != null) {
+					info = repository.getCity(message).getDescription();
+				} else{
 					info = "No info about " + message + ".";
 				}
 				execute(new SendMessage(update.getMessage().getChatId(), info));
