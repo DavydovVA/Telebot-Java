@@ -1,4 +1,4 @@
-package com.telebot;
+package com.davydov.telebot;
 
 public enum Command {
 

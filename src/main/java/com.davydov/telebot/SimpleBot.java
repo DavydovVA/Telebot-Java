@@ -1,6 +1,6 @@
-package com.telebot;
+package com.davydov.telebot;
 
-import com.database.Peripheral;
+import com.davydov.database.Peripheral;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -10,22 +10,25 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class SimpleBot extends TelegramLongPollingBot {
 
-	Peripheral periphery = new Peripheral();
+	private Peripheral periphery;
+
+	public SimpleBot(Peripheral peripheral) {
+		this.periphery = peripheral;
+	}
 
 	public void onUpdateReceived(Update update) {
 		try {
 			String message = update.getMessage().getText();
 
 			if (message.charAt(0) != '/') {
-				// if not a Command
-				String description = periphery.show(message).getDescription();
-
-				if (description != null) {
-					execute(new SendMessage(update.getMessage().getChatId(), description));
-				} else {
-					execute(new SendMessage(update.getMessage().getChatId(), "No info about ".concat(message)));
+				String info;
+				try {
+					info = periphery.get(message).getDescription(); // throws NPtrExc, when nothing found in db
+				} catch(NullPointerException e){
+					info = "No info about " + message + ".";
 				}
 
+				execute(new SendMessage(update.getMessage().getChatId(), info));
 			} else if (message.charAt(0) == '/') {
 				// if Command
 				Command command = Command.parse(message);
