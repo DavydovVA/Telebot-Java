@@ -14,6 +14,7 @@ public enum Command {
     private final String command;
     private final String description;
 
+
     Command(String command, List<Command> list) {
         this.command = command;
 
@@ -31,8 +32,6 @@ public enum Command {
         this.description = description;
     }
 
-
-
     static Command parse(String command) {
         //Command[] list = values();
         for (Command command1 : values()) {
@@ -41,10 +40,6 @@ public enum Command {
             }
         }
         return null;
-    }
-
-    public Command[] getCommands() {
-        return values();
     }
 
     public String getDescription() {
