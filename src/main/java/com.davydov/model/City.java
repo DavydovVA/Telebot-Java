@@ -29,7 +29,7 @@ public class City {
         this.id = id;
     }
 
-    @Column(name = "city_name", nullable = false)
+    @Column(name = "city_name", nullable = false, unique = true)
     public String getCityName() {
         return this.cityName;
     }
