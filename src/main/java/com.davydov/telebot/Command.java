@@ -7,7 +7,7 @@ public enum Command {
 
     START("/start", "Hello!"),
     CITIES("/cities", "shows a list of cities."),
-    HELP("/help", Arrays.asList(CITIES)); // should stay at the end
+    HELP("/help", Arrays.asList(CITIES));
 
 
     private final String command;
