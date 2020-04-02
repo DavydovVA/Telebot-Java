@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface CityRepository extends JpaRepository<City, Long> {
-    @Query(value = "SELECT * FROM cities WHERE city_name = ?1", nativeQuery = true)
-    City findByCityName(String cityName);
+    @Query(value = "SELECT * FROM cities WHERE city_name = :cityName", nativeQuery = true)
+    City findByCityName(@Param("cityName") String cityName);
 
     @Modifying
     @Query(value = "DELETE FROM cities WHERE city_name = :cityName", nativeQuery = true)

@@ -14,6 +14,10 @@ public class WebServiceController {
 
     @RequestMapping(value = "/cities/list", method = RequestMethod.GET)
     public String showAll() {
+        System.out.println("\n");
+        System.out.println(periphery.getAll());
+
+
         return new Gson().toJson(periphery.getAll());
     }
 

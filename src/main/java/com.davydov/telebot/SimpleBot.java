@@ -10,14 +10,25 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class SimpleBot extends TelegramLongPollingBot {
 
-	Peripheral periphery = new Peripheral();
+	private Peripheral periphery;
+
+	public SimpleBot(Peripheral peripheral) {
+		this.periphery = peripheral;
+	}
 
 	public void onUpdateReceived(Update update) {
 		try {
 			String message = update.getMessage().getText();
 
 			if (message.charAt(0) != '/') {
-				execute(new SendMessage(update.getMessage().getChatId(), periphery.get(message).getDescription()));
+				String info;
+				try {
+					info = periphery.get(message).getDescription(); // throws NPtrExc, when nothing found in db
+				} catch(NullPointerException e){
+					info = "No info about " + message + ".";
+				}
+
+				execute(new SendMessage(update.getMessage().getChatId(), info));
 			} else if (message.charAt(0) == '/') {
 				// if Command
 				Command command = Command.parse(message);
