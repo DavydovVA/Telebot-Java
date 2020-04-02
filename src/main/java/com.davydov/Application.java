@@ -1,6 +1,6 @@
 package com.davydov;
 
-import com.davydov.database.Peripheral;
+import com.davydov.database.CityRepository;
 import com.davydov.telebot.SimpleBot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
@@ -30,13 +30,13 @@ public class Application {
     @Component
     public static class RunBotApplication {
         @Autowired
-        private Peripheral peripheral;
+        private CityRepository repository;
 
         public void run() {
             ApiContextInitializer.init();
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
             try {
-                telegramBotsApi.registerBot(new SimpleBot(peripheral));
+                telegramBotsApi.registerBot(new SimpleBot(repository));
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }

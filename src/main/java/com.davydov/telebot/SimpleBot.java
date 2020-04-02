@@ -1,6 +1,6 @@
 package com.davydov.telebot;
 
-import com.davydov.database.Peripheral;
+import com.davydov.database.CityRepository;
 import com.davydov.model.City;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -12,10 +12,10 @@ import java.util.List;
 
 public class SimpleBot extends TelegramLongPollingBot {
 
-	private Peripheral periphery;
+	private CityRepository repository;
 
-	public SimpleBot(Peripheral peripheral) {
-		this.periphery = peripheral;
+	public SimpleBot(CityRepository peripheral) {
+		this.repository = peripheral;
 	}
 
 	public void onUpdateReceived(Update update) {
@@ -26,7 +26,7 @@ public class SimpleBot extends TelegramLongPollingBot {
 
 				String info;
 				try {
-					info = periphery.get(message).getDescription(); // throws NPtrExc, when nothing found in db
+					info = repository.getCity(message).getDescription(); // throws NPtrExc, when nothing found in db
 				} catch(NullPointerException e){
 					info = "No info about " + message + ".";
 				}
@@ -54,7 +54,7 @@ public class SimpleBot extends TelegramLongPollingBot {
 							break;
 
 						case CITIES:
-							List<City> cities = periphery.getAll();
+							List<City> cities = repository.findAll();
 
 							StringBuilder sb2 = new StringBuilder();
 							for (City c: cities) {
