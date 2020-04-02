@@ -1,11 +1,13 @@
 package com.davydov.telebot;
 
 import com.davydov.database.Peripheral;
+import com.davydov.model.City;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.util.List;
 
 
 public class SimpleBot extends TelegramLongPollingBot {
@@ -21,29 +23,44 @@ public class SimpleBot extends TelegramLongPollingBot {
 			String message = update.getMessage().getText();
 
 			if (message.charAt(0) != '/') {
+
 				String info;
 				try {
 					info = periphery.get(message).getDescription(); // throws NPtrExc, when nothing found in db
 				} catch(NullPointerException e){
 					info = "No info about " + message + ".";
 				}
-
 				execute(new SendMessage(update.getMessage().getChatId(), info));
+
 			} else if (message.charAt(0) == '/') {
-				// if Command
+
 				Command command = Command.parse(message);
 
 				if (command != null) {
 					switch (command) {
-						// to be update
-						case HELP:
-							sendMessage(update, command.getDescription());
-							break;
 						case START:
 							sendMessage(update, command.getDescription());
 							break;
+
+						case HELP:
+							Command[] list = command.getCommands();
+
+							StringBuilder sb1 = new StringBuilder();
+							for (int i = 1; i < list.length; i++){
+								sb1.append(list[i].getCommand().concat(" "))
+										.append(list[i].getDescription().concat("\n"));
+							}
+							sendMessage(update, sb1.toString());
+							break;
+
 						case CITIES:
-							sendMessage(update, command.getDescription());
+							List<City> cities = periphery.getAll();
+
+							StringBuilder sb2 = new StringBuilder();
+							for (City c: cities) {
+								sb2.append(c.getCityName().concat("\n"));
+							}
+							sendMessage(update, sb2.toString());
 							break;
 					}
 				} else {

@@ -3,8 +3,8 @@ package com.davydov.telebot;
 public enum Command {
 
     START("/start", "Hello!"),
-    HELP("/help", "mem"),
-    CITIES("/cities", "list");
+    HELP("/help", "shows a list of commands."),
+    CITIES("/cities", "shows a list of cities.");
 
 
     private final String command;
@@ -24,6 +24,10 @@ public enum Command {
             }
         }
         return null;
+    }
+
+    public Command[] getCommands() {
+        return values();
     }
 
     public String getDescription() {
