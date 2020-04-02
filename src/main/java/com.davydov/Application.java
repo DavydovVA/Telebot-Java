@@ -28,7 +28,7 @@ public class Application {
     }
 
     @Component
-    public class RunBotApplication {
+    public static class RunBotApplication {
         @Autowired
         private Peripheral peripheral;
 
