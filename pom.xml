@@ -28,7 +28,7 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
-            <version>42.2.11</version>
+            <version>42.2.25</version>
         </dependency>
 
         <dependency>
